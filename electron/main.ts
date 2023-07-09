@@ -26,7 +26,7 @@ function createWindow() {
     darkTheme: true,
     width: width,
     height: height,
-    icon: path.join(process.env.PUBLIC, ''),
+    // icon: path.join(process.env.PUBLIC, ''),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },

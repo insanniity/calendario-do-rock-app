@@ -1,12 +1,14 @@
+import {Container} from "@mui/material";
+import Copyright from "components/copyright";
 import {Outlet} from "react-router-dom";
 
 
 const PainelLayout = () => {
     return (
-        <div>
-            <h1>Painel</h1>
+        <Container component="main" maxWidth="xs" sx={{height: '100vh', alignItems: "center", display: "flex",  flexDirection: 'column', justifyContent: "center"}}>
             <Outlet />
-        </div>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
     )
 }
 
