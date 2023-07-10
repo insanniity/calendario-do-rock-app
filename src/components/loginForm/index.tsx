@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import {Box, Button, TextField} from "@mui/material";
-import AuthServices from "services/auth";
+import {useAppDispatch} from "store";
+import AuthApi from "services/api/auth";
 
 
 type FormState = {
@@ -10,9 +11,11 @@ type FormState = {
 
 const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormState>({defaultValues: {email: "admin@gmail.com", senha: "123456"}});
+    const dispatch = useAppDispatch();
+    // const authSelector = useAppSelector(useAuth);
 
     const onSubmit = async ({email, senha}:FormState) => {
-       await AuthServices.login(email, senha);
+        dispatch(AuthApi.login({password: senha, username: email }));
     };
 
     return (

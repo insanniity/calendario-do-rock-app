@@ -1,9 +1,11 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import authReducer from "store/auth";
+import configReducer from "store/config";
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    config: configReducer
 })
 
 

@@ -1,30 +1,51 @@
-import {AuthResponse} from "types/auth";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 import {CLIENT_ID, CLIENT_SECRET} from "utils/constants";
-import axiosInstance from "services/api/axios";
 import {AxiosResponse} from "axios";
+import {AuthResponse} from "types/auth";
+import axiosInstance from "services/api/axios";
 
 
 const AuthApi = {
-    login: async (username: string, password: string): Promise<AuthResponse> => {
-        try {
-            const headers = {
-                'Content-type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + window.btoa(CLIENT_ID + ':' + CLIENT_SECRET),
+    login: createAsyncThunk(
+        'auth/login',
+        async (data: { username: string, password: string }, thunkAPI) => {
+            try {
+                const headers = {
+                    'Content-type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Basic ' + window.btoa(CLIENT_ID + ':' + CLIENT_SECRET),
+                }
+                const body = {
+                    ...data,
+                    grant_type: 'password',
+                }
+                const res: AxiosResponse<AuthResponse> = await axiosInstance.post(`/oauth2/token`, body, {headers});
+                return res.data;
+            }catch (error: any) {
+                return thunkAPI.rejectWithValue(error.data.message);
             }
-            
-            const data = {
-                username: username,
-                password: password,
-                grant_type: 'password',
-            }
-
-            const res: AxiosResponse<AuthResponse> = await axiosInstance.post(`/oauth2/token`, data, {headers});
-            return res.data;
-        } catch (error: any) {
-            // console.log(error.data.message);
-            throw "Login failed";
         }
-    }
+    )
+
+    // login: async (username: string, password: string): Promise<AuthResponse> => {
+    //     try {
+    //         const headers = {
+    //             'Content-type': 'application/x-www-form-urlencoded',
+    //             'Authorization': 'Basic ' + window.btoa(CLIENT_ID + ':' + CLIENT_SECRET),
+    //         }
+    //
+    //         const data = {
+    //             username: username,
+    //             password: password,
+    //             grant_type: 'password',
+    //         }
+    //
+    //         const res: AxiosResponse<AuthResponse> = await axiosInstance.post(`/oauth2/token`, data, {headers});
+    //         return res.data;
+    //     } catch (error: any) {
+    //         // console.log(error.data.message);
+    //         throw "Login failed";
+    //     }
+    // }
 }
 
 export default AuthApi;
