@@ -3,12 +3,13 @@ import {CLIENT_ID, CLIENT_SECRET} from "utils/constants";
 import {AxiosResponse} from "axios";
 import {AuthResponse} from "types/auth";
 import axiosInstance from "services/api/axios";
+import {setAuthenticated} from "store/config";
 
 
 const AuthApi = {
     login: createAsyncThunk(
         'auth/login',
-        async (data: { username: string, password: string }, thunkAPI) => {
+        async (data: { username: string, password: string }, {dispatch, rejectWithValue, fulfillWithValue}) => {
             try {
                 const headers = {
                     'Content-type': 'application/x-www-form-urlencoded',
@@ -19,9 +20,10 @@ const AuthApi = {
                     grant_type: 'password',
                 }
                 const res: AxiosResponse<AuthResponse> = await axiosInstance.post(`/oauth2/token`, body, {headers});
-                return res.data;
+                dispatch(setAuthenticated(true));
+                fulfillWithValue(res.data);
             }catch (error: any) {
-                return thunkAPI.rejectWithValue(error.data.message);
+                return rejectWithValue(error.data.message);
             }
         }
     )

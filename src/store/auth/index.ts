@@ -15,7 +15,6 @@ type AuthState = {
     username?: string,
 }
 
-
 const initialState: AuthState = {
     loading: false,
     error: null,
@@ -26,7 +25,9 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-
+        logout: () => {
+            return initialState;
+        }
     },
     extraReducers: (builder) => {
         builder

@@ -9,7 +9,9 @@ import {BrowserRouter} from 'react-router-dom';
 import Rotas from 'rotas';
 import {ToastContainer} from 'react-toastify';
 import {Provider} from "react-redux";
-import {store} from "store";
+import {persistor, store} from "store";
+import {PersistGate} from 'redux-persist/integration/react';
+import Authenticated from "components/authenticated";
 
 
 function App() {
@@ -17,23 +19,27 @@ function App() {
     return (
         <BrowserRouter>
             <Provider store={store}>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline/>
-                    <Rotas/>
-                    <ToastContainer
-                        position="top-right"
-                        autoClose={2000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme={'colored'}
-                        style={{zIndex: 9999999}}
-                    />
-                </ThemeProvider>
+                <PersistGate loading={null} persistor={persistor}>
+                    <Authenticated>
+                        <ThemeProvider theme={theme}>
+                            <CssBaseline/>
+                            <Rotas/>
+                            <ToastContainer
+                                position="top-right"
+                                autoClose={2000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme={'colored'}
+                                style={{zIndex: 9999999}}
+                            />
+                        </ThemeProvider>
+                    </Authenticated>
+                </PersistGate>
             </Provider>
         </BrowserRouter>
     )
