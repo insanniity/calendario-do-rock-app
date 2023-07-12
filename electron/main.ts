@@ -1,6 +1,6 @@
 import {app, BrowserWindow, screen} from 'electron'
 import path from 'node:path'
-import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
+import installExtension, {REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS} from 'electron-devtools-installer';
 
 // The built directory structure
 //
@@ -23,6 +23,9 @@ function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
   win = new BrowserWindow({
+    center: true,
+    roundedCorners: true,
+    // show: false,
     darkTheme: true,
     width: width,
     height: height,
@@ -32,12 +35,33 @@ function createWindow() {
     },
   })
 
-  installExtension(REDUX_DEVTOOLS)
+  win.maximize();
+  win.webContents.openDevTools();
+  // win.show();
+  //hidden menu
+  win.setMenuBarVisibility(false)
+
+  // globalShortcut.register('CommandOrControl+D', () => {
+  //   if(win?.webContents.isDevToolsOpened()) {
+  //     win?.webContents.closeDevTools();
+  //   }else{
+  //     win?.webContents.openDevTools();
+  //   }
+  // });
+
+  // win.webContents.once("dom-ready", async () => {
+  //   await installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
+  //       .then((name) => console.log(`Added Extension:  ${name}`))
+  //       .catch((err) => console.log("An error occurred: ", err))
+  //       .finally(() => {
+  //         win?.webContents.openDevTools();
+  //       });
+  // });
+
+  installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((err) => console.log('An error occurred: ', err));
 
-  //hidden menu
-  win.setMenuBarVisibility(false)
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {

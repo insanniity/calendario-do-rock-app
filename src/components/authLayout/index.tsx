@@ -1,9 +1,21 @@
 import {Container} from "@mui/material";
 import Copyright from "components/copyright";
-import {Outlet} from "react-router-dom";
+import {Navigate, Outlet, useLocation} from "react-router-dom";
+import {useAppSelector} from "store";
+import {useConfig} from "store/config";
 
 
-const PainelLayout = () => {
+const AuthLayout = () => {
+    const {authenticated} = useAppSelector(useConfig)
+    const location = useLocation();
+    const state = location?.state;
+    const fromLocation = state?.from?.pathname ? state.from.pathname : "/painel";
+
+    if(authenticated){
+        return <Navigate to={fromLocation} replace />
+    }
+
+
     return (
         <Container component="main" maxWidth="xs" sx={{height: '100vh', alignItems: "center", display: "flex",  flexDirection: 'column', justifyContent: "center"}}>
             <Outlet />
@@ -13,4 +25,4 @@ const PainelLayout = () => {
 }
 
 
-export default PainelLayout
+export default AuthLayout

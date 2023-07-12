@@ -3,7 +3,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginForm from "components/loginForm";
 
 
-const Login = () => {
+const LoginPage = () => {
     return (
         <Box
             sx={{
@@ -25,4 +25,4 @@ const Login = () => {
 }
 
 
-export default Login;
+export default LoginPage;

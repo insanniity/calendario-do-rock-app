@@ -9,21 +9,23 @@ import {setAuthenticated} from "store/config";
 const AuthApi = {
     login: createAsyncThunk(
         'auth/login',
-        async (data: { username: string, password: string }, {dispatch, rejectWithValue, fulfillWithValue}) => {
+        async (data:{username: string, password: string}, thunkAPI) => {
             try {
                 const headers = {
                     'Content-type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Basic ' + window.btoa(CLIENT_ID + ':' + CLIENT_SECRET),
                 }
                 const body = {
-                    ...data,
+                    password: data.password,
+                    username: data.username,
                     grant_type: 'password',
                 }
                 const res: AxiosResponse<AuthResponse> = await axiosInstance.post(`/oauth2/token`, body, {headers});
-                dispatch(setAuthenticated(true));
-                fulfillWithValue(res.data);
+                thunkAPI.dispatch(setAuthenticated(true));
+                return res.data;
+                // fulfillWithValue(res.data);
             }catch (error: any) {
-                return rejectWithValue(error.data.message);
+                return thunkAPI.rejectWithValue(error.data.message);
             }
         }
     )
