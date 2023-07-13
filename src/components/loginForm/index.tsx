@@ -1,7 +1,9 @@
 import {useForm} from "react-hook-form";
 import {Box, Button, TextField} from "@mui/material";
 import AuthApi from "services/api/auth";
-import {useAppDispatch} from "hooks";
+import {useAppDispatch, useAppSelector, useAuth} from "hooks";
+import {useEffect} from "react";
+import {toast} from "react-toastify";
 
 
 type FormState = {
@@ -12,11 +14,18 @@ type FormState = {
 const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormState>({defaultValues: {email: "admin@gmail.com", senha: "123456"}});
     const dispatch = useAppDispatch();
-    // const authSelector = useAppSelector(useAuth);
+    const {error} = useAppSelector(useAuth);
 
     const onSubmit = async ({email, senha}:FormState) => {
         dispatch(AuthApi.login({password: senha, username: email }));
     };
+
+    useEffect(() => {
+        if(error) {
+            toast.error(error)
+        }
+    }, [error]);
+
 
     return (
         <Box component="form"  onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>

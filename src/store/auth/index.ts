@@ -44,7 +44,7 @@ export const authSlice = createSlice({
             })
             .addCase(AuthApi.login.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
+                state.error = action.payload ? JSON.stringify(action.payload) : "Oops! Something went wrong";
             })
             .addCase(AuthApi.login.pending, (state) => {
                 state.loading = true;

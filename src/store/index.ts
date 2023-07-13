@@ -3,7 +3,6 @@ import authReducer from "store/auth";
 import configReducer from "store/config";
 import storage from 'redux-persist/lib/storage';
 import {persistReducer, persistStore} from 'redux-persist';
-import thunk from 'redux-thunk';
 import AuthApi from "services/api/auth";
 
 const authPersistConfig  = {
@@ -29,7 +28,7 @@ export const store = configureStore({
     devTools: true,
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
-            thunk: {}
+            thunk: {extraArgument: {authApi: AuthApi}},
         })
 }, )
 

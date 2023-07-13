@@ -26,7 +26,7 @@ const AuthApi = {
                 // return res.data;
                 return thunkAPI.fulfillWithValue(res.data);
             }catch (error: any) {
-                return thunkAPI.rejectWithValue(error.data.message);
+                return thunkAPI.rejectWithValue(error.data);
             }
         }
     )

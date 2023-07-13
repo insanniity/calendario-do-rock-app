@@ -5,6 +5,7 @@ type ConfigState = {
     loading: boolean,
     authenticated: boolean,
     drawerOpen?: boolean,
+    menuAtual?: string,
 }
 
 
@@ -12,6 +13,7 @@ const initialState: ConfigState = {
     loading: false,
     authenticated: false,
     drawerOpen: true,
+    menuAtual: 'home',
 }
 
 
@@ -28,6 +30,9 @@ export const configSlice = createSlice({
         },
         setDrawerOpen: (state, action) => {
             state.drawerOpen = action.payload;
+        },
+        setMenuAtual: (state, action) => {
+            state.menuAtual = action.payload;
         }
     }
 })
@@ -36,5 +41,5 @@ export const configSlice = createSlice({
 
 export default configSlice.reducer;
 
-export const {setLoading, setDrawerOpen, setAuthenticated} = configSlice.actions;
+export const {setMenuAtual, setLoading, setDrawerOpen, setAuthenticated} = configSlice.actions;
 
