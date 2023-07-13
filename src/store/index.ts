@@ -4,6 +4,7 @@ import configReducer from "store/config";
 import storage from 'redux-persist/lib/storage';
 import {persistReducer, persistStore} from 'redux-persist';
 import thunk from 'redux-thunk';
+import AuthApi from "services/api/auth";
 
 const authPersistConfig  = {
     key: 'auth',
@@ -25,8 +26,11 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: [thunk],
     devTools: true,
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            thunk: {}
+        })
 }, )
 
 export const persistor = persistStore(store)

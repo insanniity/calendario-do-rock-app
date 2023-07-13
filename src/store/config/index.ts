@@ -4,12 +4,14 @@ import {createSlice} from "@reduxjs/toolkit";
 type ConfigState = {
     loading: boolean,
     authenticated: boolean,
+    drawerOpen?: boolean,
 }
 
 
 const initialState: ConfigState = {
     loading: false,
     authenticated: false,
+    drawerOpen: true,
 }
 
 
@@ -23,6 +25,9 @@ export const configSlice = createSlice({
         },
         setAuthenticated: (state, action) => {
             state.authenticated = action.payload;
+        },
+        setDrawerOpen: (state, action) => {
+            state.drawerOpen = action.payload;
         }
     }
 })
@@ -31,5 +36,5 @@ export const configSlice = createSlice({
 
 export default configSlice.reducer;
 
-export const {setLoading, setAuthenticated} = configSlice.actions;
+export const {setLoading, setDrawerOpen, setAuthenticated} = configSlice.actions;
 

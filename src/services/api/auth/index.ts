@@ -23,8 +23,8 @@ const AuthApi = {
                 }
                 const res: AxiosResponse<AuthResponse> = await axiosInstance.post(`/oauth2/token`, body, {headers});
                 thunkAPI.dispatch(setAuthenticated(true));
-                return res.data;
-                // fulfillWithValue(res.data);
+                // return res.data;
+                return thunkAPI.fulfillWithValue(res.data);
             }catch (error: any) {
                 return thunkAPI.rejectWithValue(error.data.message);
             }
