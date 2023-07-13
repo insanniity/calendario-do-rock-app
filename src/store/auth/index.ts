@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {RootState} from "store/index.ts";
 import AuthApi from "services/api/auth";
 import jwtDecode from "jwt-decode";
 import {AuthData} from "types/auth";
@@ -59,4 +58,3 @@ export default authSlice.reducer;
 
 export const {logout} = authSlice.actions;
 
-export const useAuth = (state: RootState) => state.auth;

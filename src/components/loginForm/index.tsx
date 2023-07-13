@@ -1,7 +1,7 @@
 import {useForm} from "react-hook-form";
 import {Box, Button, TextField} from "@mui/material";
-import {useAppDispatch} from "store";
 import AuthApi from "services/api/auth";
+import {useAppDispatch} from "hooks";
 
 
 type FormState = {

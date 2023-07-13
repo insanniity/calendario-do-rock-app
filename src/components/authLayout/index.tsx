@@ -1,8 +1,7 @@
 import {Container} from "@mui/material";
 import Copyright from "components/copyright";
 import {Navigate, Outlet, useLocation} from "react-router-dom";
-import {useAppSelector} from "store";
-import {useConfig} from "store/config";
+import {useAppSelector, useConfig} from "hooks";
 
 
 const AuthLayout = () => {

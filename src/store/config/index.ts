@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {RootState} from "store/index.ts";
 
 
 type ConfigState = {
@@ -34,4 +33,3 @@ export default configSlice.reducer;
 
 export const {setLoading, setAuthenticated} = configSlice.actions;
 
-export const useConfig = (state: RootState) => state.config;

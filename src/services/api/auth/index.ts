@@ -1,9 +1,10 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+
 import {CLIENT_ID, CLIENT_SECRET} from "utils/constants";
 import {AxiosResponse} from "axios";
 import {AuthResponse} from "types/auth";
 import axiosInstance from "services/api/axios";
 import {setAuthenticated} from "store/config";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 
 const AuthApi = {

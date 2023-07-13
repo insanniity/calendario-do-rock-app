@@ -1,7 +1,6 @@
 import {ReactNode, useEffect} from "react";
-import {useAppDispatch, useAppSelector} from "store";
-import {useAuth} from "store/auth";
 import {setAuthenticated} from "store/config";
+import {useAppDispatch, useAppSelector, useAuth} from "hooks";
 
 
 type Props = {

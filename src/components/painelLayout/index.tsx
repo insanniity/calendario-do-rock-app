@@ -1,7 +1,7 @@
 import {Navigate, Outlet, useLocation} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "store";
-import {setAuthenticated, useConfig} from "store/config";
+import {setAuthenticated} from "store/config";
 import {logout} from "store/auth";
+import {useAppDispatch, useAppSelector, useConfig} from "hooks";
 
 
 const PainelLayout = () => {
