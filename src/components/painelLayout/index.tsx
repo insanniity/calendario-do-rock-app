@@ -35,11 +35,7 @@ const PainelLayout = () => {
     return (
         <Box sx={{ display: 'flex' }}>
             <AppBar position="absolute" open={drawerOpen}>
-                <Toolbar
-                    sx={{
-                        pr: '24px', // keep right padding when drawer closed
-                    }}
-                >
+                <Toolbar sx={{pr: '24px'}}>
                     <IconButton
                         edge="start"
                         color="inherit"
@@ -93,20 +89,15 @@ const PainelLayout = () => {
             <Box
                 component="main"
                 sx={{
-                    backgroundColor: (theme) =>
-                        theme.palette.mode === 'light'
-                            ? theme.palette.grey[100]
-                            : theme.palette.grey[900],
+                    backgroundColor: (theme) => theme.palette.mode === 'light' ? theme.palette.grey[100] : "",
                     flexGrow: 1,
                     height: '100vh',
                     overflow: 'auto',
                 }}
             >
-                <Toolbar />
-                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                    <Grid container spacing={3}>
-                        <Outlet/>
-                    </Grid>
+                <Toolbar/>
+                <Container maxWidth="xl" sx={{my: 3}}>
+                    <Outlet/>
                 </Container>
             </Box>
         </Box>
