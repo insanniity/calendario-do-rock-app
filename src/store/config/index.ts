@@ -6,6 +6,7 @@ type ConfigState = {
     authenticated: boolean,
     drawerOpen?: boolean,
     menuAtual?: string,
+    theme: "light" | "dark",
 }
 
 
@@ -14,6 +15,7 @@ const initialState: ConfigState = {
     authenticated: false,
     drawerOpen: true,
     menuAtual: 'home',
+    theme: 'light',
 }
 
 
@@ -33,7 +35,14 @@ export const configSlice = createSlice({
         },
         setMenuAtual: (state, action) => {
             state.menuAtual = action.payload;
-        }
+        },
+        setTheme: (state) => {
+            if(state.theme === 'dark'){
+                state.theme = 'light';
+            }else{
+                state.theme = 'dark';
+            }
+        },
     }
 })
 
@@ -41,5 +50,5 @@ export const configSlice = createSlice({
 
 export default configSlice.reducer;
 
-export const {setMenuAtual, setLoading, setDrawerOpen, setAuthenticated} = configSlice.actions;
+export const {setTheme, setMenuAtual, setLoading, setDrawerOpen, setAuthenticated} = configSlice.actions;
 
