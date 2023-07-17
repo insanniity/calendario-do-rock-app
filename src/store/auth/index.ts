@@ -2,6 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import AuthApi from "services/api/auth";
 import jwtDecode from "jwt-decode";
 import {AuthData} from "types/auth";
+import {RootState} from "store";
 
 type AuthState = {
     loading: boolean,
@@ -58,3 +59,14 @@ export default authSlice.reducer;
 
 export const {logout} = authSlice.actions;
 
+
+export const hasAnyAuthority = (state:RootState , authorities?: string[]): boolean => {
+    const requiredAuthorities = state.auth.authorities;
+    if (!requiredAuthorities) {
+        return false;
+    }
+    if (!authorities) {
+        return true;
+    }
+    return requiredAuthorities.some(requiredAuthority => authorities.includes(requiredAuthority));
+}

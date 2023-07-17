@@ -1,27 +1,19 @@
 import {Navigate, Outlet, useLocation} from "react-router-dom";
-import {setAuthenticated, setDrawerOpen, setTheme} from "store/config";
+import {setAuthenticated, setDrawerOpen} from "store/config";
 import {logout} from "store/auth";
 import {useAppDispatch, useAppSelector, useConfig} from "hooks";
-import {Box, Button, Container, Divider, FormControlLabel, IconButton, List, Toolbar, Typography} from "@mui/material";
+import {Box, Button, Container, Divider, IconButton, Toolbar, Typography} from "@mui/material";
 import {AppBar} from "components/painelLayout/appBar";
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import {Drawer} from "components/painelLayout/drawer";
-import {MaterialUISwitch} from "components/painelLayout/switch";
+import SideBar from "components/painelLayout/sideBar";
 
 
 const PainelLayout = () => {
     const location = useLocation();
-    const {authenticated, drawerOpen, menuAtual, theme} = useAppSelector(useConfig)
+    const {authenticated, drawerOpen, menuAtual} = useAppSelector(useConfig)
     const dispatch = useAppDispatch();
-
-    const handleTheme = () => {
-        dispatch(setTheme());
-    }
 
 
     const handleLogout = () => {
@@ -81,20 +73,7 @@ const PainelLayout = () => {
                     </IconButton>
                 </Toolbar>
                 <Divider />
-                <List component="nav">
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <DashboardIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Dashboard" />
-                    </ListItemButton>
-                    <Divider sx={{ my: 1 }} />
-                    <FormControlLabel
-                        onClick={handleTheme}
-                        control={<MaterialUISwitch sx={{ m: 1 }} checked={theme === "dark"} />}
-                        label="DarkMode"
-                    />
-                </List>
+                <SideBar />
             </Drawer>
             <Box
                 component="main"
