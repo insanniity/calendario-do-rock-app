@@ -1,13 +1,13 @@
 import {Navigate, Outlet, useLocation} from "react-router-dom";
-import {setAuthenticated, setDrawerOpen} from "store/config";
-import {logout} from "store/auth";
+import {setDrawerOpen} from "store/config";
 import {useAppDispatch, useAppSelector, useConfig} from "hooks";
-import {Box, Button, Container, Divider, IconButton, Toolbar, Typography} from "@mui/material";
+import {Box, Container, Divider, IconButton, Toolbar, Typography} from "@mui/material";
 import {AppBar} from "components/painelLayout/appBar";
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {Drawer} from "components/painelLayout/drawer";
 import SideBar from "components/painelLayout/sideBar";
+import AuthMenu from "components/painelLayout/authMenu";
 
 
 const PainelLayout = () => {
@@ -15,11 +15,6 @@ const PainelLayout = () => {
     const {authenticated, drawerOpen, menuAtual} = useAppSelector(useConfig)
     const dispatch = useAppDispatch();
 
-
-    const handleLogout = () => {
-        dispatch(logout());
-        dispatch(setAuthenticated(false));
-    }
 
     const toggleDrawer = () => {
         dispatch(setDrawerOpen(!drawerOpen));
@@ -54,9 +49,7 @@ const PainelLayout = () => {
                     >
                         {menuAtual?.toUpperCase()}
                     </Typography>
-                    <Button onClick={handleLogout} variant={"contained"}>
-                        Sair
-                    </Button>
+                    <AuthMenu />
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={drawerOpen}>
